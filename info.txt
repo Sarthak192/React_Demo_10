@@ -1,0 +1,4 @@
+In this we just optimize our code of class component using set the condition shouldComponentUpdate in this it
+compare previous state and the current state and also with the props and also use useEffect in functional
+component in order to delete some code when component deleted from dom, and we use componentWillUnmount(), 
+this function calls when that component remove from the dom
