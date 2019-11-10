@@ -1,5 +1,5 @@
-In this we solve the problem of props chain in that we use Context API in which we make a context and we wrap 
-our context component to the one which the component needed hence when do not have to follow parent child
-relationship of transfering props, In this we just first wrap the provider to the component that it needs
-and then in that component we consume it and it does not return the JSX as it return a function .But it has 
-some disadvantaage like suppose we want to use the authenticate the user inside componentDidMount 
+In this we use alternative way of using Context outside render in class based component we can call static 
+contextType and set it as Context object, so after that it can give us access of using this.context and its
+methods
+
+In functional based component we can also use using hook known as useContext and pass context object

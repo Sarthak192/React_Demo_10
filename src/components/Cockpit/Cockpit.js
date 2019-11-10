@@ -1,16 +1,21 @@
-import React, { useEffect, useRef } from 'react';
-import AuthContext from '../../Context/auth-context'
+import React, { useEffect, useRef, useContext } from 'react';
+
 import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const cockpit = props => {
-  const toggleBtnRef = useRef(null)
-  // toggleBtnRef.current.click()  We cannot call this just after this because when we call this at that time
-                                // render() is not called so the perfect place to call it in useEffect because
-                                // useEffect calls just after render()
+  const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
 
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    toggleBtnRef.current.click()
+    // Http request...
+    // setTimeout(() => {
+    //   alert('Saved data to cloud!');
+    // }, 1000);
+    toggleBtnRef.current.click();
     return () => {
       console.log('[Cockpit.js] cleanup work in useEffect');
     };
@@ -42,12 +47,10 @@ const cockpit = props => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>This is really working!</p>
-      <button ref = {toggleBtnRef} className={btnClass} onClick={props.clicked}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
-      <AuthContext.Consumer>
-        {(context)=><button onClick = {context.login}>Login</button>}
-      </AuthContext.Consumer>
+      <button onClick={authContext.login}>Log in</button>
     </div>
   );
 };
