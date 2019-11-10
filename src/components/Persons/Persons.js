@@ -1,4 +1,5 @@
-import React, { Component,PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+
 import Person from './Person/Person';
 
 class Persons extends PureComponent {
@@ -15,13 +16,14 @@ class Persons extends PureComponent {
   //   console.log('[Persons.js] shouldComponentUpdate');
   //   if (
   //     nextProps.persons !== this.props.persons ||
-  //     nextProps.clicked !== this.props.clicked ||
-  //     nextProps.changed !== this.props.changed) 
-  //   {
+  //     nextProps.changed !== this.props.changed ||
+  //     nextProps.clicked !== this.props.clicked
+  //   ) {
   //     return true;
   //   } else {
   //     return false;
   //   }
+  //   // return true;
   // }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -52,6 +54,7 @@ class Persons extends PureComponent {
           age={person.age}
           key={person.id}
           changed={event => this.props.changed(event, person.id)}
+          isAuth={this.props.isAuthenticated}
         />
       );
     });

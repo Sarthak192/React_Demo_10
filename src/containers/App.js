@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
-import classes from './App.css';
+import withClass from '../hoc/withClass'
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import classes from './App.css'
+import Aux from '../hoc/Aux'
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    showCounter: 0,
+    authenticated: false
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -59,7 +62,12 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    this.setState({ persons: persons });
+    this.setState((prevState, props)=>{
+      return{ 
+      persons: persons, 
+      showCounter: prevState.showCounter+1
+    }
+    })
   };
 
   deletePersonHandler = personIndex => {
@@ -74,6 +82,10 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
 
+  loginHandler = () => {
+    this.setState({authenticated: true})
+  }
+
   render() {
     console.log('[App.js] render');
     let persons = null;
@@ -84,12 +96,13 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated = {this.state.authenticated}
         />
       );
     }
 
     return (
-      <div className={classes.App}>
+      <Aux>
         <button
           onClick={() => {
             this.setState({ showCockpit: false });
@@ -103,13 +116,13 @@ class App extends Component {
             showPersons={this.state.showPersons}
             personsLength={this.state.persons.length}
             clicked={this.togglePersonsHandler}
+            login = {this.loginHandler}
           />
         ) : null}
         {persons}
-      </div>
+      </Aux>
     );
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

@@ -1,24 +1,49 @@
 import React, { Component } from 'react';
-// import classes from './Person.css';
+import withClass from '../../../hoc/withClass';
+import classes from './Person.css';
+import PropTypes from 'prop-types';
 
 class Person extends Component {
+  constructor(props){
+    super(props)
+    this.inputElementRef = React.createRef()
+  }
+
+  
+  componentDidMount(){
+    // document.querySelector("input").focus();   ----- it focus on the first element
+    // this.inputElement.focus() ----- First Way
+    this.inputElementRef.current.focus()
+  }
   render() {
     console.log('[Person.js] rendering...');
     return (
-      [
-        <p key = "i1" onClick={this.props.click}>
-          I'm {this.props.name} and I am {this.props.age} years old!
-        </p>,
-        <p key = "i2">{this.props.children}</p>,
-        <input
-          key = "i3"
-          type="text"
-          onChange={this.props.changed}
-          value={this.props.name}
-        />
-      ]
+      // <Aux>
+        <React.Fragment>
+          {this.props.isAuth?<p>Authenticated</p>:<p>Login Please</p>}
+          <p key="i1" onClick={this.props.click}>
+            I'm {this.props.name} and I am {this.props.age} years old!
+          </p>
+          <p key="i2">{this.props.children}</p>
+          <input
+            ref = {this.inputElementRef}
+            // ref = {(inputEl)=> this.inputElement = inputEl}
+            key="i3"
+            type="text"
+            onChange={this.props.changed}
+            value={this.props.name}
+          />
+        </React.Fragment>
+      // </Aux>
     );
   }
 }
 
-export default Person;
+Person.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number,
+  click: PropTypes.func,
+  changed: PropTypes.func
+}
+
+export default withClass(Person, classes.Person);

@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import classes from './Cockpit.css';
 
 const cockpit = props => {
+  const toggleBtnRef = useRef(null)
+  // toggleBtnRef.current.click()  We cannot call this just after this because when we call this at that time
+                                // render() is not called so the perfect place to call it in useEffect because
+                                // useEffect calls just after render()
+
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    // Http request...
-    setTimeout(() => {
-      alert('Saved data to cloud!');
-    }, 1000);
+    toggleBtnRef.current.click()
     return () => {
       console.log('[Cockpit.js] cleanup work in useEffect');
     };
@@ -20,6 +22,8 @@ const cockpit = props => {
       console.log('[Cockpit.js] cleanup work in 2nd useEffect');
     };
   });
+
+  // useEffect();
 
   const assignedClasses = [];
   let btnClass = '';
@@ -38,9 +42,10 @@ const cockpit = props => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>This is really working!</p>
-      <button className={btnClass} onClick={props.clicked}>
+      <button ref = {toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
+      <button onClick = {props.login}>Login</button>
     </div>
   );
 };
