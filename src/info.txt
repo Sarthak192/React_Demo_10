@@ -1,5 +1,0 @@
-In this we use alternative way of using Context outside render in class based component we can call static 
-contextType and set it as Context object, so after that it can give us access of using this.context and its
-methods
-
-In functional based component we can also use using hook known as useContext and pass context object
