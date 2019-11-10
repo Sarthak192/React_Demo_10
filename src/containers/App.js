@@ -4,6 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import classes from './App.css'
 import Aux from '../hoc/Aux'
+import AuthContext from '../Context/auth-context'
 
 class App extends Component {
   constructor(props) {
@@ -54,9 +55,6 @@ class App extends Component {
     const person = {
       ...this.state.persons[personIndex]
     };
-
-    // const person = Object.assign({}, this.state.persons[personIndex]);
-
     person.name = event.target.value;
 
     const persons = [...this.state.persons];
@@ -96,7 +94,6 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
-          isAuthenticated = {this.state.authenticated}
         />
       );
     }
@@ -110,16 +107,17 @@ class App extends Component {
         >
           Remove Cockpit
         </button>
+        <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
         {this.state.showCockpit ? (
           <Cockpit
             title={this.props.appTitle}
             showPersons={this.state.showPersons}
             personsLength={this.state.persons.length}
             clicked={this.togglePersonsHandler}
-            login = {this.loginHandler}
           />
         ) : null}
         {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }

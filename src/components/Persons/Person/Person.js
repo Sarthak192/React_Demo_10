@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withClass from '../../../hoc/withClass';
 import classes from './Person.css';
 import PropTypes from 'prop-types';
+import AuthContext from '../../../Context/auth-context'
 
 class Person extends Component {
   constructor(props){
@@ -9,7 +10,6 @@ class Person extends Component {
     this.inputElementRef = React.createRef()
   }
 
-  
   componentDidMount(){
     // document.querySelector("input").focus();   ----- it focus on the first element
     // this.inputElement.focus() ----- First Way
@@ -18,9 +18,12 @@ class Person extends Component {
   render() {
     console.log('[Person.js] rendering...');
     return (
-      // <Aux>
         <React.Fragment>
-          {this.props.isAuth?<p>Authenticated</p>:<p>Login Please</p>}
+          <AuthContext.Consumer>
+            {(context)=>
+              context.authenticated ? <p>Authenticated</p> : <p>Please Login</p>
+            }
+          </AuthContext.Consumer>
           <p key="i1" onClick={this.props.click}>
             I'm {this.props.name} and I am {this.props.age} years old!
           </p>
@@ -34,7 +37,6 @@ class Person extends Component {
             value={this.props.name}
           />
         </React.Fragment>
-      // </Aux>
     );
   }
 }

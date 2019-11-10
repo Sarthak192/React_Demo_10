@@ -1,23 +1,5 @@
-In the Person Component we define a function Component i.e Aux and in that we us e props.chilren and make the
-root element as Aux and the alternative for this is we use <React.fragment>, in this we also make a higher 
-order component that is which takes the class of the root componenet, in that we first makes a normal JS 
-function that return functional component with two parameter the Wrapped Component and the class name.
-
-In this when we use withClass in Person component and we not able to access the props as we accept input
-WrappedComponent and print the WrappedComponent so we need the props to be available in WrappedComponent so
-we makt he copy of props using spread operator.
-
-Sometimes when we use setState, at that time we soometimes have to depend upon the old state or previous state
-so in that case we have to set setState differently as a function and pass some parameter.
-
-In this we can also validate our props by defining the props which we need and the type of that props.
-
-If we want to focus on our input tag so if we use document.querySelector('input').focus() with 
-componentDidMount() then it focus on the first input tag, so we have to use ref and the second method is by
-using constructor() 
-
-We can also use ref inside functional component using useRef it just do the same thing but we just have to
-call it inside the useEffect but it ran just after render()
-
-In this we pass props from cockpit to person so in order to transfer we just pass it to Persons which is 
-not required hence we use some other technique.
+In this we solve the problem of props chain in that we use Context API in which we make a context and we wrap 
+our context component to the one which the component needed hence when do not have to follow parent child
+relationship of transfering props, In this we just first wrap the provider to the component that it needs
+and then in that component we consume it and it does not return the JSX as it return a function .But it has 
+some disadvantaage like suppose we want to use the authenticate the user inside componentDidMount 
