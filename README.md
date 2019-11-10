@@ -1,3 +1,4 @@
-Dsiable Info ---> It helps to disabled the Less button, if the count of ingredient is 0 it disabled that button
+In this we have use axios in order to get data or post data update data or delete data. 
 
-purchasable : It is used in order to hide or show Order Now button
+And we also use axios interceptor in this
+.
